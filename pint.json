@@ -1,0 +1,10 @@
+{
+  "preset": "psr12",
+  "rules": {
+    "indentation_type": {
+      "indent_type": "space",
+      "indent_size": 2
+    },
+    "line_ending": "\n"
+  }
+}
