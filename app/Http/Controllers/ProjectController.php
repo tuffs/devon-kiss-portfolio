@@ -4,15 +4,32 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index() {
+      $projects = Project::query()
+        ->orderBy('order')
+        ->orderBy('title')
+        ->get([
+          'id',
+          'title',
+          'slug',
+          'short_description',
+          'image_url',
+          'url',
+          'github_url',
+          'featured',
+          'order',
+        ]);
+
+      return Inertia::render('Projects/Index', [
+        'projects' => $projects,
+      ]);
     }
 
     /**
@@ -34,9 +51,22 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
-    {
-        //
+    public function show(Project $project) {
+      // Optional: you can eager-load or limit fields if needed
+      return Inertia::render('Projects/Show', [
+        'project' => $project->only([
+          'title',
+          'slug',
+          'description',
+          'short_description',
+          'url',
+          'github_url',
+          'image_url',
+          'featured',
+          'order',
+          'created_at',
+        ]),
+      ]);
     }
 
     /**

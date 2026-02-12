@@ -11,18 +11,12 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
     protected static ?string $password;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
+    /*
+     * Basic user creation with User::definition() Implement User::definition();
      */
-    public function definition(): array
-    {
+    public function definition(): array {
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
@@ -32,11 +26,22 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * Indicate that the model's email address should be unverified.
+    /*
+     * Define specific state for the site administrator User
      */
-    public function unverified(): static
-    {
+    public function admin(): static {
+      return $this->state(fn (array $attributes) => [
+        'name' => 'Devon Kiss',
+        'email' => 'devon@3dmandt.com',
+        'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+      ]);
+    }
+
+    /*
+     * Ensures that the email_verified_at is NULL with the unverified method
+     * such as User::admin()->unverified();
+     */
+    public function unverified(): static {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
         ]);
