@@ -35,17 +35,28 @@ class ProjectController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
+    public function create() {
+      // Renders the React form for creating a project
+      return Inertia::render('Projects/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+      // Stores validated data into the database
+      // based on the provided request
+
+      $validated = $this->fieldValidation($request);
+
+      // user_id is excluded from the $fillable array,
+      // this value is based off of user relationship
+      // to the database table entry for Projects
+
+      $request->user()->projects()->create($validated);
+
+      return redirect()->route('projects.index')
+        ->with('message', 'Project created successfully.');
     }
 
     /**
@@ -72,17 +83,25 @@ class ProjectController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
-    {
-        //
+    public function edit(Project $project) {
+        // Passes the project instance to the React Edit view
+        return Inertia::render('Projects/Edit', [
+          'project' => $project
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
-    {
-        //
+    public function update(Request $request, Project $project) {
+      // Updates validated data into the database
+      // based on the provided request
+      $validated = $this->fieldValidation($request, $project);
+
+      $project->update($validated);
+
+      return redirect()->route('projects.index')
+        ->with('message', 'Project updated successfully.');
     }
 
     /**
@@ -90,6 +109,26 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route('projects.index')
+          ->with('message', 'Project deleted successfully');
+    }
+
+    /*
+     * Validation function for our create and update
+     * methods.
+     */
+    protected function fieldValidation(Request $request, ?Project $p = null) {
+      return $request->validate([
+        'title'              =>    'required|string|max:255',
+        'slug'               =>    'required|string|unique:projects,slug' . ($p?','.$p->id:''),
+        'description'        =>    'required|string',
+        'short_description'  =>    'required|string|max:255',
+        'url'                =>    'nullable|url',
+        'github_url'         =>    'nullable|url',
+        'featured'           =>    'boolean',
+        'order'              =>    'integer',
+      ]);
     }
 }

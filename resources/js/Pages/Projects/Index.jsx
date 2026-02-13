@@ -1,7 +1,12 @@
 import { Head, Link } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 
-export default function ProjectsIndex({ projects }) {
+export default function ProjectsIndex({ projects, flash }) {
+  // Access the message via flash.message from ProjectController
+  //  rediected responses on success.
+
+  const message = flash?.message;
+
   return (
     <GuestLayout>
       <Head title="Devon Kiss - My Official Portfolio of Software Engineering Work." />
@@ -18,6 +23,10 @@ export default function ProjectsIndex({ projects }) {
               website and small experiments.
             </p>
           </div>
+
+          {message && (
+            <div className="w-full bg-green-100 text-green-600">{message}</div>
+          )}
 
           {projects.length === 0 ? (
             <p className="text-center text-gray-500 text-lg">
