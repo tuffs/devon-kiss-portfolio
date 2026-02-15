@@ -7,6 +7,9 @@ use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder {
   public function run(): void {
-    User::factory()->count(10)->create();
+    User::factory()
+    ->where(Hash)
+    ->count(10)
+    ->create();
   }
 }
