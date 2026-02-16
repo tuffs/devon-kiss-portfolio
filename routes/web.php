@@ -16,6 +16,13 @@ Route::get('/', function () {
     ]);
 });
 
+// Authenticated Project Routes: ProjectController@{@create, @store, @edit, @update}
+Route::middleware(['auth', 'admin'])->group(function () {
+    // Full resource CRUD (except index & show which are already public)
+    Route::resource('projects', ProjectController::class)
+      ->only(['create', 'store', 'edit', 'update', 'destroy']);
+});
+
 // Public Project Routes: ProjectController@index, ProjectController@show
 Route::prefix('projects')->name('projects.')->group(function () {
   Route::get('/', [ProjectController::class, 'index'])
@@ -25,12 +32,6 @@ Route::prefix('projects')->name('projects.')->group(function () {
     ->name('show');
 });
 
-// Authenticated Project Routes: ProjectController@{@create, @store, @edit, @update}
-Route::middleware(['auth', 'admin'])->group(function () {
-    // Full resource CRUD (except index & show which are already public)
-    Route::resource('projects', ProjectController::class)
-      ->only(['create', 'store', 'edit', 'update', 'destroy']);
-});
 
 Route::middleware(['auth'])->group(function () {
   Route::get('/dashboard', [DashboardController::class, 'index'])
@@ -43,5 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
   });
 });
+
+
 
 require __DIR__.'/auth.php';

@@ -1,5 +1,5 @@
 import { Head, Link } from "@inertiajs/react";
-import GuestLayout from "@/Layouts/GuestLayout";
+import MainLayout from "@/Layouts/MainLayout";
 
 export default function ProjectsIndex({ projects, flash }) {
   // Access the message via flash.message from ProjectController
@@ -8,19 +8,26 @@ export default function ProjectsIndex({ projects, flash }) {
   const message = flash?.message;
 
   return (
-    <GuestLayout>
+    <MainLayout>
       <Head title="Devon Kiss - My Official Portfolio of Software Engineering Work." />
 
       <div className="py-12 md:py-16 lg:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-              My Memorable Projects
+              Memorable Projects
             </h1>
 
             <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              A selection of my work - ranging from full applications to simple
-              website and small experiments.
+              Selection of work ranging from full web apps, smaller business
+              apps and websites, to automation functionality inside monolithic
+              web apps.
+            </p>
+            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
+              I have also included several configurations and workflows which I
+              utlize on a daily basis to augmen development from standard
+              snippets, to full project documentation suites with tests for
+              applications and more.
             </p>
           </div>
 
@@ -73,7 +80,7 @@ export default function ProjectsIndex({ projects, flash }) {
                           rel="noopener noreferrer"
                           className=""
                         >
-                          Live Demo →
+                          Open Our Live Demo
                         </a>
                       )}
                       {project.github_url && (
@@ -82,7 +89,7 @@ export default function ProjectsIndex({ projects, flash }) {
                           target="_blank"
                           className="text-sm font-medium text-gray-700 hover:text-gray-900"
                         >
-                          View on GitHub →
+                          View on GitHub
                         </a>
                       )}
                     </div>
@@ -93,6 +100,6 @@ export default function ProjectsIndex({ projects, flash }) {
           )}
         </div>
       </div>
-    </GuestLayout>
+    </MainLayout>
   );
 }

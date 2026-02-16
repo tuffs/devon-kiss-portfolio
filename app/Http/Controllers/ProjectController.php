@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 
-class ProjectController extends Controller
-{
+class ProjectController extends Controller {
     /**
      * Display a listing of the resource.
      */
@@ -44,20 +45,22 @@ class ProjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request) {
-      // Stores validated data into the database
-      // based on the provided request
+    public function store(StoreProjectRequest $request) {
+      $validated = $request->validated();
 
-      $validated = $this->fieldValidation($request);
+      // Handle image upload with UUID filename
+      if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalExtension();
+        $filename = (string) Str::uuid() . '.' . $extension;
+        $path = $file->storeAs('projects', $filename, 'public');
+        $validated['image_url'] = $path;
+      }
 
-      // user_id is excluded from the $fillable array,
-      // this value is based off of user relationship
-      // to the database table entry for Projects
-
-      $request->user()->projects()->create($validated);
+      auth()->user()->projects()->create($validated);
 
       return redirect()->route('projects.index')
-        ->with('message', 'Project created successfully.');
+        ->with('message', 'Project created successfully!');
     }
 
     /**
@@ -95,11 +98,10 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project) {
+    public function update(StoreProjectRequest $request, Project $project) {
       // Updates validated data into the database
       // based on the provided request
-      $validated = $this->fieldValidation($request, $project);
-
+      $validated = $request->validated();
       $project->update($validated);
 
       return redirect()->route('projects.index')

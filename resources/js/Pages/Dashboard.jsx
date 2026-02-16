@@ -7,7 +7,7 @@ export default function Dashboard({ projects }) {
     <AuthenticatedLayout
       header={
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Portfolio Management
+          Project Management
         </h2>
       }
     >
