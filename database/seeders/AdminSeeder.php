@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
    */
   public function run(): void {
     // Check if admin already exists, preventing dupes
-    if (!User::where('email', 'devon@3dmandt.com')->exists()) {
+    if (!User::where('is_admin', true)->where('email', 'devon@3dmandt.com')->exists()) {
       User::factory()->admin()->create();
     }
   }

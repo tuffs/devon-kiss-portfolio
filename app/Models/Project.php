@@ -15,9 +15,10 @@ class Project extends Model {
     'short_description',
     'url',
     'github_url',
-    'image_url',
+    'image_path',
     'featured',
     'order',
+    'video_url',
   ];
 
   protected $casts = [

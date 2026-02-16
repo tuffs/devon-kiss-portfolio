@@ -20,7 +20,8 @@ class ProjectController extends Controller
           'title',
           'slug',
           'short_description',
-          'image_url',
+          'image_path',
+          'video_url',
           'url',
           'github_url',
           'featured',
@@ -72,7 +73,8 @@ class ProjectController extends Controller
           'short_description',
           'url',
           'github_url',
-          'image_url',
+          'image_path',
+          'video_url',
           'featured',
           'order',
           'created_at',
@@ -129,6 +131,8 @@ class ProjectController extends Controller
         'github_url'         =>    'nullable|url',
         'featured'           =>    'boolean',
         'order'              =>    'integer',
+        'image_path'         =>    'string',
+        'video_url'          =>    'string',
       ]);
     }
 }

@@ -16,9 +16,9 @@ export default function ProjectShow({ project }) {
           </Link>
 
           <article className="bg-white rounded-lg shadow overflow-hidden">
-            {project.image_url && (
+            {project.image_path && (
               <img
-                src={project.image_url}
+                src={project.image_path}
                 alt={project.title}
                 className="w-full h-64 md:h-96 object-cover"
               />

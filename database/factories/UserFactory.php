@@ -18,22 +18,28 @@ class UserFactory extends Factory
      */
     public function definition(): array {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'name'               =>    fake()->name(),
+            'email'              =>    fake()->unique()->safeEmail(),
+            'email_verified_at'  =>    now(),
+            'password'           =>    static::$password ??= Hash::make('password'),
+            'remember_token'     =>    Str::random(10),
         ];
     }
 
     /*
      * Define specific state for the site administrator User
+     * We are specifying obfuscated Name, Email Address,
+     * and Password via the Environment Variables
+     * Finally, we implement the lynch pin option for users which
+     * tells us this *IS* an Admin, officially, with 'is_admin' => true
+     * in our attributes alias.
      */
     public function admin(): static {
       return $this->state(fn (array $attributes) => [
-        'name' => 'Devon Kiss',
-        'email' => 'devon@3dmandt.com',
-        'password' => Hash::make(env('ADMIN_PASSWORD', 'password')),
+        'name'                   =>    env('ADMIN_NAME', 'Admin Name'),
+        'email'                  =>    env('ADMIN_EMAIL', 'admin@test.com'),
+        'password'               =>    Hash::make(env('ADMIN_PASSWORD', 'admin_password')),
+        'is_admin'               =>    true,
       ]);
     }
 
@@ -43,7 +49,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'email_verified_at'  =>    null,
         ]);
     }
 }

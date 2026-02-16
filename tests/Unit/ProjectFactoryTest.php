@@ -20,7 +20,8 @@ it ('can generate a valid project with realistic data', function () {
     ->short_description->toBeString()
     ->url->toBeString()->toStartWith('https://')
     ->github_url->toBeString()->toStartWith('https://')
-    ->image_url->toBeString()->toStartWith('https://')
+    ->image_path->toBeString()->toStartWith('public/storage')
+    ->video_url->toBeString()->toStartWith('https://')
     ->featured->toBeBool()
     ->order->toBeInt()
     ->user_id->toBe($user->id);

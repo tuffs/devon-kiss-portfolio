@@ -39,10 +39,10 @@ export default function ProjectsIndex({ projects, flash }) {
                   key={project.slug}
                   className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
                 >
-                  {project.image_url && (
+                  {project.image_path && (
                     <div className="aspect-video bg-gray-100">
                       <img
-                        src={project.image_url}
+                        src={project.image_path}
                         alt={`${project.title} Project by Devon Kiss`}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

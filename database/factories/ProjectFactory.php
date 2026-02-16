@@ -20,11 +20,10 @@ class ProjectFactory extends Factory {
         'description' => $this->faker->paragraphs(4, true),
         'url' => 'https://' . $this->faker->domainName() . '/' . $this->faker->slug(),
         'github_url' => 'https://github.com/' . $this->faker->userName() . '/' . Str::slug($title),
-        'image_url' => "https://picsum.photos/1200/800?random=" . $this->faker->unique()->numberBetween(1, 1000),
-        // 'image_url' => $this->faker->imageUrl(1200, 800, 'technology', true),
         'featured' => $this->faker->boolean(20), // 20% change of being true
         'order' => $this->faker->numberBetween(1, 100),
-        // user_id will be set via relationship (e.g., ->for($user))
+        'image_path' => 'public/storage/image_' . $this->faker->unique()->numberBetween(500, 1000) . '.png',
+        'video_url' => 'https://' . $this->faker->domainName() . '/' . $this->faker->slug(),
       ];
     }
 

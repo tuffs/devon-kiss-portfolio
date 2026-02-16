@@ -16,8 +16,9 @@ it('has the expected fillable attributes', function () {
       'short_description',
       'url',
       'github_url',
-      'image_url',
+      'image_path',
       'featured',
-      'order'
+      'order',
+      'video_url'
     ]);
 });

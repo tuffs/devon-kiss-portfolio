@@ -26,20 +26,22 @@ Route::prefix('projects')->name('projects.')->group(function () {
 });
 
 // Authenticated Project Routes: ProjectController@{@create, @store, @edit, @update}
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'admin'])->group(function () {
     // Full resource CRUD (except index & show which are already public)
     Route::resource('projects', ProjectController::class)
-        ->only(['create', 'store', 'edit', 'update', 'destroy']);
+      ->only(['create', 'store', 'edit', 'update', 'destroy']);
+});
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])
-        ->middleware(['verified'])
-        ->name('dashboard');
+Route::middleware(['auth'])->group(function () {
+  Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['verified'])
+    ->name('dashboard');
 
-    Route::middleware('verified')->group(function () {
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
+  Route::middleware('verified')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+  });
 });
 
 require __DIR__.'/auth.php';
