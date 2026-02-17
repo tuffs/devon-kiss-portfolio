@@ -51,4 +51,19 @@ class ProjectTest extends TestCase {
         ->has('projects', 10)
     );
   }
+
+  public function test_projects_are_ordered_by_title_then_title(): void {
+    $user = User::factory()->create();
+    Project::factory()->for($user)->create(['title' => 'Beta', 'order' => 2]);
+    Project::factory()->for($user)->create(['title' => 'Alpha', 'order' => 1]);
+
+    $response = $this->get('/projects');
+
+    $response->assertInertia(fn ($page) =>
+      $page
+        ->has('projects', 2)
+        ->where('projects.0.title', 'Alpha')
+        ->where('projects.1.title', 'Beta')
+    );
+  }
 }

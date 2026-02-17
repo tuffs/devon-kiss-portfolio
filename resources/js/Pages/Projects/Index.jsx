@@ -2,8 +2,11 @@ import { Head, Link } from "@inertiajs/react";
 import MainLayout from "@/Layouts/MainLayout";
 
 export default function ProjectsIndex({ projects, flash }) {
-  // Access the message via flash.message from ProjectController
-  //  rediected responses on success.
+  const toStorageUrl = (path) => {
+    if (!path) return null;
+    if (path.startsWith("http://") || path.startsWith("https://")) return path;
+    return `/storage/${path.replace(/^\/+/, "")}`;
+  };
 
   const message = flash?.message;
 
@@ -41,61 +44,65 @@ export default function ProjectsIndex({ projects, flash }) {
             </p>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {projects.map((project) => (
-                <div
-                  key={project.slug}
-                  className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
-                >
-                  {project.image_path && (
-                    <div className="aspect-video bg-gray-100">
-                      <img
-                        src={project.image_path}
-                        alt={`${project.title} Project by Devon Kiss`}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </div>
-                  )}
-                  <div className="p-6">
-                    <h2 className="text-2xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
-                      <Link href={route("projects.show", project.slug)}>
-                        {project.title}
-                      </Link>
-                    </h2>
+              {projects.map((project) => {
+                const imageSrc = toStorageUrl(project.image_url);
 
-                    {project.featured && (
-                      <span className="inline-block mt-2 bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded">
-                        Featured
-                      </span>
+                return (
+                  <div
+                    key={project.slug}
+                    className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
+                  >
+                    {project.image_path && (
+                      <div className="aspect-video bg-gray-100">
+                        <img
+                          src={`/storage/${project.image_path}`}
+                          alt={`${project.title} Project by Devon Kiss`}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
                     )}
+                    <div className="p-6">
+                      <h2 className="text-2xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+                        <Link href={route("projects.show", project.slug)}>
+                          {project.title}
+                        </Link>
+                      </h2>
 
-                    <p className="mt-3 text-gray-600 line-clamp-3">
-                      {project.short_description}
-                    </p>
+                      {project.featured && (
+                        <span className="inline-block mt-2 bg-amber-100 text-amber-800 text-xs font-medium px-2.5 py-0.5 rounded">
+                          Featured
+                        </span>
+                      )}
 
-                    <div className="mt-5 flex flex-wrap gap-4">
-                      {project.url && (
-                        <a
-                          href={project.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className=""
-                        >
-                          Open Our Live Demo
-                        </a>
-                      )}
-                      {project.github_url && (
-                        <a
-                          href={project.github_url}
-                          target="_blank"
-                          className="text-sm font-medium text-gray-700 hover:text-gray-900"
-                        >
-                          View on GitHub
-                        </a>
-                      )}
+                      <p className="mt-3 text-gray-600 line-clamp-3">
+                        {project.short_description}
+                      </p>
+
+                      <div className="mt-5 flex flex-wrap gap-4">
+                        {project.url && (
+                          <a
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className=""
+                          >
+                            Open Our Live Demo
+                          </a>
+                        )}
+                        {project.github_url && (
+                          <a
+                            href={project.github_url}
+                            target="_blank"
+                            className="text-sm font-medium text-gray-700 hover:text-gray-900"
+                          >
+                            View on GitHub
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

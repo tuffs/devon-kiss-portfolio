@@ -2,6 +2,10 @@ import { Head, Link } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function ProjectShow({ project }) {
+  const imageSrc = project?.image_path
+    ? `/storage/${project.image_path.replace(/^\/+/, "")}`
+    : null;
+
   return (
     <GuestLayout>
       <Head title={project.title} />
@@ -16,9 +20,9 @@ export default function ProjectShow({ project }) {
           </Link>
 
           <article className="bg-white rounded-lg shadow overflow-hidden">
-            {project.image_path && (
+            {imageSrc && (
               <img
-                src={project.image_path}
+                src={imageSrc}
                 alt={project.title}
                 className="w-full h-64 md:h-96 object-cover"
               />

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Http\Request;
@@ -46,19 +47,42 @@ class ProjectController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(StoreProjectRequest $request) {
+      /*
+      * Die and Dump for Ensuring Image Files Hit the Server
+      */
+
+      // dd($request->allFiles(), $request->file('image'));
+
+      /*
+      * Validate our $request instance's data
+      */
       $validated = $request->validated();
 
-      // Handle image upload with UUID filename
+      /*
+      * Handle image upload for filename as UUID value w/ extension
+      */
       if ($request->hasFile('image')) {
         $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $filename = (string) Str::uuid() . '.' . $extension;
-        $path = $file->storeAs('projects', $filename, 'public');
-        $validated['image_url'] = $path;
+
+        // This explicitly uses the 'public' disk (storage/app/public)
+        $path = $file->store('projects', 'public');
+
+        // Verify it actually hit the disk
+        if (!Storage::disk('public')->exists($path)) {
+           return back()->withErrors(['image' => 'File failed to save to disk.']);
+        }
+
+        $validated['image_path'] = $path;
       }
 
+      /*
+       * Actually create the database table entry here.
+       */
       auth()->user()->projects()->create($validated);
 
+      /*
+       * Redirect the
+       */
       return redirect()->route('projects.index')
         ->with('message', 'Project created successfully!');
     }

@@ -54,7 +54,13 @@ export default function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    post(route("projects.store"));
+    post(route("projects.store"), {
+      forceFormData: true, // Ensures file upload triggers multipart/form-data
+      onSuccess: () => {
+        // Clear image preview from memory
+        setImagePreview(null);
+      },
+    });
   };
 
   return (
@@ -218,7 +224,7 @@ export default function Create() {
                     id="github_url"
                     type="text"
                     value={data.github_url}
-                    onChange={(e) => setData("github_url", e.target.value)}
+                    onChange={(e) => setData("github_url", `${e.target.value}`)}
                     placeholder="username/project-name"
                     className="flex-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                   />
