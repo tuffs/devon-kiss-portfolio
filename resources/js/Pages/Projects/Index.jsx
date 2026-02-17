@@ -1,5 +1,6 @@
 import { Head, Link } from "@inertiajs/react";
 import MainLayout from "@/Layouts/MainLayout";
+import SuccessFlashMessage from "@/Components/SuccessFlashMessage";
 
 export default function ProjectsIndex({ projects, flash }) {
   const toStorageUrl = (path) => {
@@ -26,17 +27,9 @@ export default function ProjectsIndex({ projects, flash }) {
               apps and websites, to automation functionality inside monolithic
               web apps.
             </p>
-            <p className="mt-4 text-gray-600 max-w-3xl mx-auto">
-              I have also included several configurations and workflows which I
-              utlize on a daily basis to augmen development from standard
-              snippets, to full project documentation suites with tests for
-              applications and more.
-            </p>
           </div>
 
-          {message && (
-            <div className="w-full bg-green-100 text-green-600">{message}</div>
-          )}
+          {message && <SuccessFlashMessage message={message} />}
 
           {projects.length === 0 ? (
             <p className="text-center text-gray-500 text-lg">
@@ -45,8 +38,6 @@ export default function ProjectsIndex({ projects, flash }) {
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {projects.map((project) => {
-                const imageSrc = toStorageUrl(project.image_url);
-
                 return (
                   <div
                     key={project.slug}

@@ -1,3 +1,4 @@
+import LinkedButton from "@/Components/LinkedButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
@@ -7,7 +8,7 @@ export default function Dashboard({ projects }) {
     <AuthenticatedLayout
       header={
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Project Management
+          Portfolio Management
         </h2>
       }
     >
@@ -15,6 +16,14 @@ export default function Dashboard({ projects }) {
 
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+          <div className="mb-6">
+            <LinkedButton
+              location={'/projects/create'}
+              size={'md'}
+            >
+              Create New Project
+            </LinkedButton>
+          </div>
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projects.map((project) => (
