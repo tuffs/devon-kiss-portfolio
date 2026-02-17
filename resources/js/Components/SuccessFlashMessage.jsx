@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function SuccessFlashMessage({ message }) {
   const handleCloseSuccessMessage = () => {
     const el = document.getElementById("success_message");
