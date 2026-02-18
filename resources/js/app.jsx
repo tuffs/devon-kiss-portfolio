@@ -6,19 +6,20 @@ import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 import { createRoot } from "react-dom/client";
 import { router } from "@inertiajs/react";
 
-const appName = import.meta.env.VITE_APP_NAME || "Laravel";
+import $ from "jquery";
+
+const appName =
+  import.meta.env.VITE_APP_NAME || "Devon's Software Engineering Portfolio";
 
 const flashFadeLogic = () => {
-  const el = document.getElementById("success_message");
-  if (el) {
-    // Clear any existing timeout events (e.g., from previous pages)
-    clearTimeout(el.timeout);
-    // Set 5-second timeout for auto-fade
-    el.timout = setTimeout(() => {
-      el.classList.add("opacity-0");
-      setTimeout(() => {
-        el.style.display = "none";
-      }, 500);
+  const $el = $("#flash_message");
+  if ($el.length) {
+    // clear existing timeouts assigned to the DOM element
+    const rawEl = $el[0];
+    clearTimeout(rawEl.timeout);
+
+    rawEl.timeout = setTimeout(() => {
+      $el.fadeOut(3500);
     }, 5000);
   }
 };
@@ -40,5 +41,4 @@ createInertiaApp({
   },
 });
 
-// Listen for successful navigations (SPA page changes)
-router.on("success", flashFadeLogic);
+setTimeout(flashFadeLogic, 100);

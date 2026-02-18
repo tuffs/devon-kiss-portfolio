@@ -1,28 +1,34 @@
 import React from "react";
+import $ from "jquery";
 
 export default function SuccessFlashMessage({ message }) {
   const handleCloseSuccessMessage = () => {
-    const el = document.getElementById("success_message");
-    if (el) {
-      // Clear any pending timeout to avoid conflicts
-      clearTimeout(el.timeout);
-      el.classList.add("opacity-0");
-      setTimeout(() => {
-        el.style.display = "none";
-      }, 500);
+    const $el = $("#flash_message");
+    if ($el.length) {
+      // Clear any existing timeouts assigned to the DOM element
+      const rawEl = $el[0];
+      clearTimeout(rawEl.timeout);
+
+      // Set 5-second delay then fade out over 1 second
+      rawEl.timeout = setTimeout(() => {
+        $el.fadeOut(1750);
+      }, 100);
     }
   };
 
   return (
     <>
       <div
-        id="success_message"
-        className="bg-green-300 border border-green-700 text-green-700 px-4 py-3 rounded-md relative shadow-lg transition-opacity duration-500 ease-in-out"
+        id="flash_message"
+        className="bg-green-100 border border-green-400 text-green-800 px-6 py-4 rounded-lg relative shadow-xl mx-2 my-5 transition-opacity duration-3000 ease-in-out opacity-100"
         role="alert"
       >
         <strong className="block text-xl font-bold">Success!</strong>
         <p className="mt-1">{message}</p>
-        <span className="absolute top-0 right-0 px-4 py-3 cursor-pointer">
+        <span
+          className="absolute top-0 right-0 px-4 py-3 cursor-pointer"
+          onClick={() => handleCloseSuccessMessage()}
+        >
           <svg
             className="fill-current h-6 w-6 text-green-700 hover:text-green-900 transition-colors"
             role="button"

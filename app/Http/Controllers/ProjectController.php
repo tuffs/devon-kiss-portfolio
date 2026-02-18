@@ -84,7 +84,7 @@ class ProjectController extends Controller {
        * Redirect the
        */
       return redirect()->route('projects.index')
-        ->with('message', 'Project created successfully!');
+        ->with('success', 'Project created successfully!');
     }
 
     /**

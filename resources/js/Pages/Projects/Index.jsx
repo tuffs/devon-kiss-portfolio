@@ -10,8 +10,6 @@ export default function ProjectsIndex({ projects, flash }) {
     return `/storage/${path.replace(/^\/+/, "")}`;
   };
 
-  const message = flash?.message;
-
   return (
     <MainLayout>
       <Head title="Devon Kiss - My Official Portfolio of Software Engineering Work." />
@@ -30,7 +28,7 @@ export default function ProjectsIndex({ projects, flash }) {
             </p>
           </div>
 
-          {message && <SuccessFlashMessage message={message} />}
+          {flash?.success && <SuccessFlashMessage message={flash?.success} />}
 
           {projects.length === 0 ? (
             <p className="text-center text-gray-500 text-lg">
