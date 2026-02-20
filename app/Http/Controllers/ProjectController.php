@@ -119,10 +119,10 @@ class ProjectController extends Controller {
      * Show the form for editing the specified resource.
      */
     public function edit(Project $project) {
-        // Passes the project instance to the React Edit view
-        return Inertia::render('Projects/Edit', [
-          'project' => $project
-        ]);
+      // Passes the project instance to the React Edit view
+      return Inertia::render('Projects/Edit', [
+        'project' => $project
+      ]);
     }
 
     /**
