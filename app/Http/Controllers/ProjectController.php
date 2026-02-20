@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Exception;
 
 class ProjectController extends Controller {
     /**
@@ -51,33 +53,42 @@ class ProjectController extends Controller {
       * Validate our $request instance's data
       */
       $validated = $request->validated();
+      $path = null;
 
       /*
       * Handle image upload for filename as UUID value w/ extension
       */
       if ($request->hasFile('image')) {
         $file = $request->file('image');
-
-        // This explicitly uses the 'public' disk (storage/app/public)
         $path = $file->store('projects', 'public');
-
-        // Verify it actually hit the disk
         if (!Storage::disk('public')->exists($path)) {
            return back()->withErrors(['image' => 'File failed to save to disk.']);
         }
-
         $validated['image_path'] = $path;
+      }
+      try {
+        /*
+        * Actually create the database table entry here.
+        */
+        auth()->user()->projects()->create($validated);
+      } catch ( Exception $e ) {
+        // Log the actual error for the developer
+        Log::error('Failed to save project: '. $e->getMessage());
+
+        if ( $path ) {
+          Storage::disk('public')->delete($path);
+        }
+
+        // Redirect back to the Projects/Creat.jsx view
+        // with a message to the user
+        return back()
+          ->withInput()
+          ->with('caution', 'An error occurred while saving to the database. Please try again.');
       }
 
       /*
-       * Actually create the database table entry here.
+       * Redirect the user to Projects/Index.jsx view
        */
-      auth()->user()->projects()->create($validated);
-
-      /*
-       * Redirect the
-       */
-
       return redirect()->route('projects.index')
         ->with('success', 'Project created successfully!');
     }

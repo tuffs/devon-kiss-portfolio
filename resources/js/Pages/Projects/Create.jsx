@@ -2,9 +2,10 @@ import { Head, useForm, Link } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import InputError from "@/Components/InputError";
 import PrimaryButton from "@/Components/PrimaryButton";
+import FlashMessage from "@/Components/FlashMessage";
 import { useState } from "react";
 
-export default function Create() {
+export default function Create({ flash }) {
   // setup the form input data with useForm asigned to destructured items
   // `data, setData, post, proessign, and errors` from `useForm`
 
@@ -76,6 +77,11 @@ export default function Create() {
               Add a new project to your portfolio
             </p>
           </div>
+
+          {/* Flash Message if Database Save Fails */}
+          {flash?.caution && (
+            <FlashMessage messageType={"caution"} message={flash?.caution} />
+          )}
 
           {/* Form Card */}
           <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
