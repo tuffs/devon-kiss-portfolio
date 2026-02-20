@@ -1,7 +1,8 @@
 import React from "react";
 import { Head, Link } from "@inertiajs/react";
 import MainLayout from "@/Layouts/MainLayout";
-import SuccessFlashMessage from "@/Components/SuccessFlashMessage";
+import FlashMessage from "@/Components/FlashMessage";
+import LinkedButton from "@/Components/LinkedButton";
 
 export default function ProjectsIndex({ projects, flash }) {
   const toStorageUrl = (path) => {
@@ -28,7 +29,17 @@ export default function ProjectsIndex({ projects, flash }) {
             </p>
           </div>
 
-          {flash?.success && <SuccessFlashMessage message={flash?.success} />}
+          {flash?.success && (
+            <FlashMessage messageType={"success"} message={flash?.success} />
+          )}
+
+          {flash?.error && (
+            <FlashMessage messageType={"error"} message={flash?.error} />
+          )}
+
+          {flash?.caution && (
+            <FlashMessage messageType={"caution"} message={flash?.caution} />
+          )}
 
           {projects.length === 0 ? (
             <p className="text-center text-gray-500 text-lg">
@@ -40,18 +51,21 @@ export default function ProjectsIndex({ projects, flash }) {
                 return (
                   <div
                     key={project.slug}
-                    className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
+                    className="group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col"
                   >
                     {project.image_path && (
                       <div className="aspect-video bg-gray-100">
-                        <img
-                          src={`/storage/${project.image_path}`}
-                          alt={`${project.title} Project by Devon Kiss`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
+                        <a href={route("projects.show", project.slug)}>
+                          <img
+                            src={`/storage/${project.image_path}`}
+                            alt={`${project.title} Project by Devon Kiss`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        </a>
                       </div>
                     )}
-                    <div className="p-6">
+                    <div className="p-6 flex flex-col flex-grow">
                       <h2 className="text-2xl font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
                         <Link href={route("projects.show", project.slug)}>
                           {project.title}
@@ -64,30 +78,15 @@ export default function ProjectsIndex({ projects, flash }) {
                         </span>
                       )}
 
-                      <p className="mt-3 text-gray-600 line-clamp-3">
+                      <p className="mt-3 text-gray-600 line-clamp-3 flex-grow">
                         {project.short_description}
                       </p>
-
-                      <div className="mt-5 flex flex-wrap gap-4">
-                        {project.url && (
-                          <a
-                            href={project.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className=""
-                          >
-                            Open Our Live Demo
-                          </a>
-                        )}
-                        {project.github_url && (
-                          <a
-                            href={project.github_url}
-                            target="_blank"
-                            className="text-sm font-medium text-gray-700 hover:text-gray-900"
-                          >
-                            View on GitHub
-                          </a>
-                        )}
+                      <div className="mt-6">
+                        <LinkedButton
+                          location={route("projects.show", project.slug)}
+                        >
+                          View Complete Project
+                        </LinkedButton>
                       </div>
                     </div>
                   </div>

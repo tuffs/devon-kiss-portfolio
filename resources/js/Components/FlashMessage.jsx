@@ -1,8 +1,36 @@
 import React, { useEffect } from "react";
 import $ from "jquery";
 
-export default function SuccessFlashMessage({ message }) {
-  const handleCloseSuccessMessage = () => {
+export default function FlashMessage({ messageType, message }) {
+  const successMessageType = {
+    main: `bg-green-100 border border-green-400 text-green-800`,
+    button: `text-green-700 hover:text-green-900`,
+    messageType: "Success!",
+  };
+
+  const errorMessageType = {
+    main: `bg-red-100 border border-red-400 text-red-800`,
+    button: `text-red-700 hover:text-red-900`,
+    messageType: "Error!",
+  };
+
+  const cautionMessageType = {
+    main: `bg-amber-100 border border-amber-400 text-amber-800`,
+    button: `text-amber-700 hover:text-amber-900`,
+    messageType: "Caution!",
+  };
+
+  let classes;
+
+  if (messageType === "success") {
+    classes = successMessageType;
+  } else if (messageType === "caution") {
+    classes = cautionMessageType;
+  } else {
+    classes = errorMessageType;
+  }
+
+  const handleCloseMessage = () => {
     const $el = $("#flash_message");
     if ($el.length) {
       // Clear any existing timeouts assigned to the DOM element
@@ -38,17 +66,19 @@ export default function SuccessFlashMessage({ message }) {
     <>
       <div
         id="flash_message"
-        className="bg-green-100 border border-green-400 text-green-800 px-6 py-4 rounded-lg relative shadow-xl mx-2 my-5 transition-opacity duration-3000 ease-in-out opacity-100"
+        className={`${classes.main} px-6 py-4 rounded-lg relative shadow-xl mx-2 my-5 transition-opacity duration-3000 ease-in-out opacity-100`}
         role="alert"
       >
-        <strong className="block text-xl font-bold">Success!</strong>
+        <strong className="block text-xl font-bold">
+          {classes.messageType}
+        </strong>
         <p className="mt-1">{message}</p>
         <span
-          className="absolute top-0 right-0 px-4 py-3 cursor-pointer"
-          onClick={() => handleCloseSuccessMessage()}
+          className={`${classes.button} absolute top-0 right-0 px-4 py-3 cursor-pointer`}
+          onClick={() => handleCloseMessage()}
         >
           <svg
-            className="fill-current h-6 w-6 text-green-700 hover:text-green-900 transition-colors"
+            className="fill-current h-6 w-6  transition-colors"
             role="button"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"

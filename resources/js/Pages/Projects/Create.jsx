@@ -14,7 +14,7 @@ export default function Create() {
     short_description: "",
     description: "",
     url: "",
-    github_url: "",
+    github_url: "https://github.com/tuffs/",
     video_url: "",
     image: null,
     featured: false,
@@ -198,7 +198,7 @@ export default function Create() {
                   id="url"
                   value={data.url}
                   onChange={(e) => setData("url", e.target.value)}
-                  placeholder="https://myproject.com"
+                  placeholder="https://myprojecturl.com"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
                 />
                 <p className="mt-1 text-xs text-gray-600">
@@ -213,24 +213,19 @@ export default function Create() {
                   htmlFor="github_url"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  GitHub URL{" "}
+                  GitHub Repo URL{" "}
                   <span className="text-gray-500 text-xs">(optional)</span>
                 </label>
-                <div className="flex items-center gap-2">
-                  <span className="text-gray-600 font-medium">
-                    https://github.com/
-                  </span>
-                  <input
-                    id="github_url"
-                    type="text"
-                    value={data.github_url}
-                    onChange={(e) => setData("github_url", `${e.target.value}`)}
-                    placeholder="username/project-name"
-                    className="flex-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
-                  />
-                </div>
-                <p className="mt-1 text-xs text-gray-500">
-                  Enter username/project-name (e.g., devon/my-project)
+                <input
+                  type="url"
+                  id="github_url"
+                  value={data.github_url}
+                  onChange={(e) => setData("github_url", e.target.value)}
+                  placeholder="https://github.com/tuffs/my-repo-name"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+                />
+                <p className="mt-1 text-xs text-gray-600">
+                  Provide the URL to the Project's GitHub Repo URL
                 </p>
                 <InputError message={errors.github_url} className="mt-2" />
               </div>
