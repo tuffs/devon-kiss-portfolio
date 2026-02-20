@@ -277,7 +277,17 @@ export default function Create({ flash }) {
                       onChange={handleImageChange}
                       className="hidden"
                     />
-                    <label htmlFor="image" className="cursor-pointer block">
+                    <label
+                      htmlFor="image"
+                      className="cursor-pointer block"
+                      tabIndex="0"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          document.getElementById("image").click();
+                        }
+                      }}
+                    >
                       <div className="text-center">
                         <svg
                           className="mx-auto h-12 w-12 text-gray-400"
@@ -295,7 +305,7 @@ export default function Create({ flash }) {
                         </svg>
                         <p className="mt-2 text-sm text-gray-600">
                           <span className="font-medium text-indigo-600 hover:text-indigo-500">
-                            Click to upload
+                            Click to Upload
                           </span>
                           {" or drag and drop"}
                         </p>
