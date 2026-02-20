@@ -48,12 +48,6 @@ class ProjectController extends Controller {
      */
     public function store(StoreProjectRequest $request) {
       /*
-      * Die and Dump for Ensuring Image Files Hit the Server
-      */
-
-      // dd($request->allFiles(), $request->file('image'));
-
-      /*
       * Validate our $request instance's data
       */
       $validated = $request->validated();
