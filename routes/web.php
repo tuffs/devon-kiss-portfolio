@@ -32,7 +32,6 @@ Route::prefix('projects')->name('projects.')->group(function () {
     ->name('show');
 });
 
-
 Route::middleware(['auth'])->group(function () {
   Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['verified'])
