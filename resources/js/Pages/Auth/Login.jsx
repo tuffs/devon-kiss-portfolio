@@ -25,7 +25,11 @@ export default function Login({ status, canResetPassword }) {
     <GuestLayout>
       <Head title="Log in" />
 
-      <div className="max-w-xl mx-auto mt-12">
+      <div className="m-4 pt-6 mx-auto text-center">
+        <h1 className="text-3xl font-bold text-green-300">Admin Login</h1>
+      </div>
+
+      <div className="m-4 md:max-w-xl md:mx-auto md:mt-12">
         {status && (
           <div className="mb-4 text-sm font-medium text-green-600">
             {status}
@@ -77,6 +81,10 @@ export default function Login({ status, canResetPassword }) {
             </label>
           </div>
 
+          <div className="mt-4 text-center mx-auto">
+            <PrimaryButton disabled={processing}>Log in</PrimaryButton>
+          </div>
+
           <div className="mt-4 flex items-center justify-end">
             {canResetPassword && (
               <Link
@@ -86,10 +94,6 @@ export default function Login({ status, canResetPassword }) {
                 Forgot your password?
               </Link>
             )}
-
-            <PrimaryButton className="ms-4" disabled={processing}>
-              Log in
-            </PrimaryButton>
           </div>
         </form>
       </div>

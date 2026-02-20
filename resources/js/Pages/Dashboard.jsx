@@ -16,11 +16,8 @@ export default function Dashboard({ projects }) {
 
       <div className="py-12">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-          <div className="mb-6">
-            <LinkedButton
-              location={'/projects/create'}
-              size={'md'}
-            >
+          <div className="pl-6 md:pl-0 mb-0 md:mb-6">
+            <LinkedButton location={"/projects/create"} size={"md"}>
               Create New Project
             </LinkedButton>
           </div>
