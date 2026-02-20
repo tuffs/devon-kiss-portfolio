@@ -8,7 +8,7 @@ import { createRoot } from "react-dom/client";
 import $ from "jquery";
 
 const appName =
-  import.meta.env.VITE_APP_NAME || "Devon's Software Engineering Portfolio";
+  import.meta.env.VITE_APP_NAME || "Devon Kiss: Software Engineering Portfolio";
 
 const flashFadeLogic = () => {
   const $el = $("#flash_message");
