@@ -5,19 +5,22 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Project;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application database.
-     */
-    public function run(): void {
+  /**
+   * Seed the application database.
+   */
+  public function run(): void {
 
-      $this->call([
-        UserSeeder::class,
-        AdminSeeder::class,
-        ProjectSeeder::class,
-      ]);
+    Storage::disk('public')->deleteDirectory('projects');
 
-    }
+    $this->call([
+      UserSeeder::class,
+      AdminSeeder::class,
+      ProjectSeeder::class,
+    ]);
+
+  }
 }

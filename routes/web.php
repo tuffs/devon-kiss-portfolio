@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-      'canLogin' => Route::has('login'),
-      'canRegister' => Route::has('register'),
-      'laravelVersion' => Application::VERSION,
-      'phpVersion' => PHP_VERSION,
-    ]);
+  return Inertia::render('Welcome', [
+    'canLogin' => Route::has('login'),
+    'canRegister' => Route::has('register'),
+    'laravelVersion' => Application::VERSION,
+    'phpVersion' => PHP_VERSION,
+  ]);
 });
 
 // Authenticated Project Routes: ProjectController@{@create, @store, @edit, @update}
 Route::middleware(['auth', 'admin'])->group(function () {
-    // Full resource CRUD (except index & show which are already public)
-    Route::resource('projects', ProjectController::class)
-      ->only(['create', 'store', 'edit', 'update', 'destroy']);
+  // Full resource CRUD (except index & show which are already public)
+  Route::resource('projects', ProjectController::class)
+    ->only(['create', 'store', 'edit', 'update', 'destroy']);
 });
 
 // Public Project Routes: ProjectController@index, ProjectController@show
@@ -43,7 +43,5 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
   });
 });
-
-
 
 require __DIR__.'/auth.php';

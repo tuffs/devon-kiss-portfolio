@@ -15,15 +15,41 @@ describe("Auth: Login UI Tests", () => {
     expect(screen.getByText(/Admin Login/i)).toBeInTheDocument();
   });
 
-  it("has an Email Address, type of text, input field.", () => {
+  it("displays the Admin Login w/ class `text-indigo-800/90`", () => {
+    const adminLoginHeaderText = screen.getByRole("heading", {
+      level: 1,
+      name: "Admin Login",
+    });
+    expect(adminLoginHeaderText).toHaveAttribute(
+      "class",
+      expect.stringContaining("text-indigo-800/90"),
+    );
+  });
+
+  it("has an Email Address, type of text, input field w/ an empty value", () => {
     const emailInputField = document.getElementById("email");
     expect(emailInputField).toBeInTheDocument();
     expect(emailInputField.getAttribute("type")).toBe("email");
+    expect(emailInputField).toHaveAttribute(
+      "value",
+      expect.stringContaining(""),
+    );
   });
 
-  it("has a Password, type of password, input field", () => {
+  it("has a Password, type of password, input field w/ an empty value", () => {
     const passwordInputField = document.getElementById("password");
     expect(passwordInputField).toBeInTheDocument();
     expect(passwordInputField.getAttribute("type")).toBe("password");
+    expect(passwordInputField).toHaveAttribute(
+      "value",
+      expect.stringContaining(""),
+    );
+  });
+
+  it("has a Login button", () => {
+    const loginButton = screen.getByRole("button", {
+      name: "Log in",
+    });
+    expect(loginButton).toBeInTheDocument();
   });
 });

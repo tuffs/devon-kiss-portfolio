@@ -8,7 +8,7 @@ export default function Dashboard({ projects }) {
     <AuthenticatedLayout
       header={
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Portfolio Management
+          Admin Dashboard
         </h2>
       }
     >
@@ -28,9 +28,12 @@ export default function Dashboard({ projects }) {
                   key={project.id}
                   className="border rounded-lg p-4 bg-gray-50 shadow-sm"
                 >
-                  <h3 className="font-bold text-lg text-indigo-600">
+                  <a
+                    href={`/projects/${project.slug}`}
+                    className="font-bold text-lg text-indigo-600"
+                  >
                     {project.title}
-                  </h3>
+                  </a>
                   <p className="text-gray-600 text-sm mt-2 line-clamp-3">
                     {project.description}
                   </p>

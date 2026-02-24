@@ -5,6 +5,7 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
+import { useEffect } from "react";
 
 export default function Login({ status, canResetPassword }) {
   const { data, setData, post, processing, errors, reset } = useForm({
@@ -21,12 +22,19 @@ export default function Login({ status, canResetPassword }) {
     });
   };
 
+  useEffect(() => {
+    const focusEmailInputField = document.getElementById("email");
+    if (focusEmailInputField) {
+      focusEmailInputField.focus();
+    }
+  }, []);
+
   return (
     <GuestLayout>
-      <Head title="Log in" />
+      <Head title={`Log In - Devon Kiss: Software Engineering Portfolio`} />
 
       <div className="m-4 pt-6 mx-auto text-center">
-        <h1 className="text-3xl font-bold text-green-300">Admin Login</h1>
+        <h1 className="text-4xl font-bold text-indigo-800/90">Admin Login</h1>
       </div>
 
       <div className="m-4 md:max-w-xl md:mx-auto md:mt-12">
