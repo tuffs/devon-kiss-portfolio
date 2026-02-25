@@ -100,6 +100,7 @@ class ProjectController extends Controller {
       // Optional: you can eager-load or limit fields if needed
       return Inertia::render('Projects/Show', [
         'project' => $project->only([
+          'id',
           'title',
           'slug',
           'description',
@@ -143,6 +144,12 @@ class ProjectController extends Controller {
      */
     public function destroy(Project $project)
     {
+
+        $image_path = $project->image_path;
+        if ($image_path) {
+          Storage::disk('public')->delete($image_path);
+        }
+
         $project->delete();
 
         return redirect()->route('projects.index')

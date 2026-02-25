@@ -1,9 +1,14 @@
 import LinkedButton from "@/Components/LinkedButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, router } from "@inertiajs/react";
 
 export default function Dashboard({ projects }) {
-  // <--- Catching the data here
+  const handleDelete = (project) => {
+    if (confirm("Are you sure you want to delete this project?")) {
+      router.delete(route("projects.destroy", project));
+    }
+  };
+
   return (
     <AuthenticatedLayout
       header={
@@ -48,6 +53,14 @@ export default function Dashboard({ projects }) {
                     <span className="text-xs text-gray-400">
                       ID: {project.id}
                     </span>
+                  </div>
+                  <div className="flex flex-wrap gap-6">
+                    <button
+                      onClick={() => handleDelete(project)}
+                      className="m-6 text-red-500 font-bold cursor-pointer"
+                    >
+                      Delete Project
+                    </button>
                   </div>
                 </div>
               ))}

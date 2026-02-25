@@ -1,4 +1,4 @@
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, router } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function ProjectShow({ project }) {
