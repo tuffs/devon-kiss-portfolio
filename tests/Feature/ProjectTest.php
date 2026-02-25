@@ -9,6 +9,7 @@ use Tests\TestCase;
 
 class ProjectTest extends TestCase {
   use RefreshDatabase;
+
   public function test_project_page_shows_empty_set_of_projects(): void {
     // check for No Projects Available Response, first
     $response = $this->get('/projects');
