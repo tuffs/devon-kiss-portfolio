@@ -1,10 +1,12 @@
 import React from "react";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import MainLayout from "@/Layouts/MainLayout";
 import FlashMessage from "@/Components/FlashMessage";
 import LinkedButton from "@/Components/LinkedButton";
 
 export default function ProjectsIndex({ projects, flash }) {
+  const { auth } = usePage().props;
+
   const toStorageUrl = (path) => {
     if (!path) return null;
     if (path.startsWith("http://") || path.startsWith("https://")) return path;
@@ -81,12 +83,21 @@ export default function ProjectsIndex({ projects, flash }) {
                       <p className="mt-3 text-gray-600 line-clamp-3 flex-grow">
                         {project.short_description}
                       </p>
-                      <div className="mt-6">
+                      <div className="mt-6 flex flex-wrap gap-4">
                         <LinkedButton
                           location={route("projects.show", project.slug)}
                         >
                           View Complete Project
                         </LinkedButton>
+
+                        {auth.user?.is_admin && (
+                          <Link
+                            href={route("projects.edit", project.id)}
+                            className="inline-flex items-center px-6 py-2 bg-gray-600 border border-transparent rounded-lg font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-700 transition"
+                          >
+                            Edit Project
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>

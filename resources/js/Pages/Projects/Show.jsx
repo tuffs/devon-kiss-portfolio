@@ -1,7 +1,9 @@
-import { Head, Link, router } from "@inertiajs/react";
+import { Head, Link, router, usePage } from "@inertiajs/react";
 import GuestLayout from "@/Layouts/GuestLayout";
 
 export default function ProjectShow({ project }) {
+  const { auth } = usePage().props;
+
   const imageSrc = project?.image_path
     ? `/storage/${project.image_path.replace(/^\/+/, "")}`
     : null;
@@ -67,6 +69,14 @@ export default function ProjectShow({ project }) {
                   >
                     View on GitHub
                   </a>
+                )}
+                {auth.user?.is_admin && (
+                  <Link
+                    href={route("projects.edit", project.id)}
+                    className="inline-flex items-center px-6 py-3 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 font-semibold"
+                  >
+                    Edit Project (Admin)
+                  </Link>
                 )}
               </div>
             </div>

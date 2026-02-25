@@ -59,6 +59,9 @@ test('unauthorized users can not create projects', function () {
   ]);
 });
 
+test('authorized users can edit projects', function () {
+});
+
 test('authorized users can delete projects', function () {
   $user = User::factory()->create([
     'is_admin' => true

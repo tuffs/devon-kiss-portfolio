@@ -130,13 +130,16 @@ class ProjectController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(StoreProjectRequest $request, Project $project) {
-      // Updates validated data into the database
-      // based on the provided request
       $validated = $request->validated();
+
+      if ($request->hasFile('image')) {
+        $validated['image_path'] = $request->file('image')->store('projects', 'public');
+      }
+
       $project->update($validated);
 
       return redirect()->route('projects.index')
-        ->with('message', 'Project updated successfully.');
+        ->with('success', 'Project updated successfully.');
     }
 
     /**
@@ -153,7 +156,7 @@ class ProjectController extends Controller {
         $project->delete();
 
         return redirect()->route('projects.index')
-          ->with('message', 'Project deleted successfully');
+          ->with('success', 'Project deleted successfully');
     }
 
     /*
