@@ -67,12 +67,6 @@ export default function Dashboard({ projects }) {
                         >
                           Edit Project
                         </Link>
-                        <button
-                          onClick={() => handleDelete(project)}
-                          className="text-red-500 font-bold cursor-pointer transition hover:text-red-700"
-                        >
-                          Delete Project
-                        </button>
                       </>
                     )}
                   </div>
