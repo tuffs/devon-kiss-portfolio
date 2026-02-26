@@ -1,4 +1,4 @@
-import { Head, useForm } from "@inertiajs/react";
+import { Head, router, useForm } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import ProjectForm from "./Form";
 
@@ -24,6 +24,17 @@ export default function Edit({ project }) {
     });
   };
 
+  const handleDeleteProject = () => {
+    const ok = window.confirm(
+      "Are you absolutely sure you wish to delete this project?",
+    );
+    if (!ok) return;
+
+    router.delete(route("projects.destroy", project.id), {
+      preserveScroll: true,
+    });
+  };
+
   return (
     <AuthenticatedLayout>
       <Head title={`Edit ${project.title}`} />
@@ -39,6 +50,23 @@ export default function Edit({ project }) {
             submitLabel="Update Project"
             imagePath={project.image_path}
           />
+        </div>
+
+        <div className="mt-12 p-4 border border-red-600 bg-red-200 text-red-700 w-full">
+          <h3 className="text-2xl font-bold">Danger Zone!</h3>
+          <p className="text-md py-3 pb-12">
+            Delete your project by pressing the button below. To do so, press on
+            the button below and confirm that you want to delete the project.
+            This will remove both the data and the image.{" "}
+          </p>
+          <div className="mx-auto text-center">
+            <button
+              className="text-xl text-white bg-red-700 border border-red-800 p-2"
+              onClick={() => handleDeleteProject()}
+            >
+              DANGER: Press to Delete Project!
+            </button>
+          </div>
         </div>
       </div>
     </AuthenticatedLayout>
