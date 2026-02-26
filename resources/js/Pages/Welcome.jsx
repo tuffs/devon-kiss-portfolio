@@ -17,8 +17,14 @@ export default function Welcome({ auth }) {
       <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
         <Navbar auth={auth} />
 
-        <main className="mt-6">
-          <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">hello</div>
+        <main className="mt-6  h-[100vw]">
+          <div className="flex flex-cols">
+            <div className="w-1/6">&nbsp;</div>
+            <div className="w-4/6 text-center text-7xl text-slate-400 animate-fade-in-up animate-blur-in opacity-0">
+              You Dream. <span className=" text-slate-500/50 ">We Build.</span>
+            </div>
+            <div className="w-1/6">&nbsp;</div>
+          </div>
         </main>
 
         <footer className="flex flex-col h-[35vh] pt-32 pb-12 text-center font-bold text-xl text-slate-100">
