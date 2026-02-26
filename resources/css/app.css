@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+div,
+span,
+aside,
+main {
+  font-family: "Funnel Sans", sans;
+}
+
+h1.heading__intro {
+  font-family: "Funnel Sans", sans;
+  letter-spacing: -0.35rem;
+  font-weight: 800;
+}

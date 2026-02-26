@@ -21,7 +21,10 @@ export default function Welcome({ auth }) {
           <div className="flex flex-cols">
             <div className="w-1/6">&nbsp;</div>
             <div className="w-4/6 text-center text-7xl text-slate-400 animate-fade-in-up animate-blur-in opacity-0">
-              You Dream. <span className=" text-slate-500/50 ">We Build.</span>
+              <h1 className="heading__intro">
+                You Dream.{" "}
+                <span className=" text-slate-500/50 ">We Build.</span>
+              </h1>
             </div>
             <div className="w-1/6">&nbsp;</div>
           </div>

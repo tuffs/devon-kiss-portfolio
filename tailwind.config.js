@@ -13,7 +13,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+        sans: ["Funnel Sans", ...defaultTheme.fontFamily.sans],
       },
     },
     keyframes: {
