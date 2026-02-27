@@ -151,20 +151,7 @@ export default function Navbar() {
                 </Dropdown>
               </div>
             </div>
-          ) : (
-            <div className="text-xs">
-              <div className="inline-flex items-center">
-                <Dropdown className="bg-inherit">
-                  <Dropdown.Link
-                    href={route("login")}
-                    className=" bg-inherit text-slate-300 hover:text-slate-500"
-                  >
-                    Login
-                  </Dropdown.Link>
-                </Dropdown>
-              </div>
-            </div>
-          )}
+          ) : null}
         </div>
       </div>
     </>
