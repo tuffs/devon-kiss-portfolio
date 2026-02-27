@@ -9,12 +9,14 @@ export default function Navbar() {
     <>
       <div className="border-b border-b-white p-3 flex flex-row justify-between items-center">
         <div className="p-1 text-slate-100">
-          <div className="inline-flex items-center">
-            <BiCodeAlt className="shrink-0 text-xl" aria-hidden="true" />
-            <span className="font-mono text-sm md:text-base my-0">
-              &nbsp;DEVON KISS
-            </span>
-          </div>
+          <Link href="/">
+            <div className="inline-flex items-center">
+              <BiCodeAlt className="shrink-0 text-xl" aria-hidden="true" />
+              <span className="font-mono text-sm md:text-base my-0">
+                &nbsp;DEVON KISS
+              </span>
+            </div>
+          </Link>
         </div>
 
         <div className="hidden md:flex md:flex-row justify-between p-1">
@@ -75,30 +77,7 @@ export default function Navbar() {
                 </div>
               </Dropdown.Content>
             </Dropdown>
-          ) : (
-            <Dropdown className="bg-inherit">
-              <Dropdown.Trigger>
-                <span className="inline-flex rounded-md ">
-                  <button
-                    type="button"
-                    className="inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-400 transition duration-150 ease-in-out hover:text-gray-600 focus:outline-none bg-inherit"
-                  >
-                    <BiMenu className="text-2xl" />
-                  </button>
-                </span>
-              </Dropdown.Trigger>
-              <Dropdown.Content>
-                <div className="bg-black border border-slate-600 shadow-xl rounded-sm mt-3">
-                  <Dropdown.Link
-                    href={route("projects.index")}
-                    className=" bg-inherit text-slate-200 hover:text-slate-300"
-                  >
-                    Projects
-                  </Dropdown.Link>
-                </div>
-              </Dropdown.Content>
-            </Dropdown>
-          )}
+          ) : null}
         </div>
 
         <div className="flex flex-row justify-between p-1">
@@ -113,7 +92,6 @@ export default function Navbar() {
                         className="inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none bg-inherit"
                       >
                         {user.name}
-
                         <svg
                           className="-me-0.5 ms-2 h-4 w-4"
                           xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +129,32 @@ export default function Navbar() {
                 </Dropdown>
               </div>
             </div>
-          ) : null}
+          ) : (
+            <div className="flex md:hidden p-1">
+              <Dropdown className="bg-inherit">
+                <Dropdown.Trigger>
+                  <span className="inline-flex rounded-md ">
+                    <button
+                      type="button"
+                      className="inline-flex items-center rounded-md border border-transparent px-3 py-2 text-sm font-medium leading-4 text-gray-400 transition duration-150 ease-in-out hover:text-gray-600 focus:outline-none bg-inherit"
+                    >
+                      <BiMenu className="text-2xl" />
+                    </button>
+                  </span>
+                </Dropdown.Trigger>
+                <Dropdown.Content>
+                  <div className="bg-black border border-slate-600 shadow-xl rounded-sm mt-3">
+                    <Dropdown.Link
+                      href={route("projects.index")}
+                      className=" bg-inherit text-slate-200 hover:text-slate-300"
+                    >
+                      Projects
+                    </Dropdown.Link>
+                  </div>
+                </Dropdown.Content>
+              </Dropdown>
+            </div>
+          )}
         </div>
       </div>
     </>

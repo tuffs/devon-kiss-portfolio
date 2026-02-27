@@ -17,7 +17,7 @@ export default function Welcome({ auth }) {
       <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
         <Navbar />
 
-        <main className="mt-6  h-[100vw]">
+        <main className="mt-24 h-[100vw]">
           <div className="flex flex-cols">
             <div className="w-1/6">&nbsp;</div>
             <div className="w-4/6 text-center text-7xl text-slate-400 animate-fade-in-up animate-blur-in opacity-0">
