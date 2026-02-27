@@ -15,7 +15,7 @@ export default function Welcome({ auth }) {
     <>
       <Head title="Devon Kiss: Software Engineering Portfolio" />
       <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-        <Navbar auth={auth} />
+        <Navbar />
 
         <main className="mt-6  h-[100vw]">
           <div className="flex flex-cols">
