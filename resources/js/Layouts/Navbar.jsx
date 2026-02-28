@@ -11,8 +11,11 @@ export default function Navbar() {
         <div className="p-1 text-slate-100">
           <Link href="/">
             <div className="inline-flex items-center">
-              <BiCodeAlt className="shrink-0 text-xl" aria-hidden="true" />
-              <span className="font-mono text-sm md:text-base my-0">
+              <BiCodeAlt
+                className="shrink-0 text-lg md:text-2xl"
+                aria-hidden="true"
+              />
+              <span className="font-mono text-lg md:text-2xl my-0">
                 &nbsp;DEVON KISS
               </span>
             </div>
