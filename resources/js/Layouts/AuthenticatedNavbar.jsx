@@ -23,7 +23,7 @@ export default function AuthenticatedNavbar({ user }) {
 
         {/* Desktop Links, Center Area */}
         <div className="hidden md:flex md:flex-row justify-between p-1">
-          <div className="p-1 space-x-2">
+          <div className="p-1 space-x-4">
             <Link
               href={route("dashboard")}
               className="text-slate-300 hover:text-slate-200 text-sm"
