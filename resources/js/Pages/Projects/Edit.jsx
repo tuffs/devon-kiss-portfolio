@@ -52,19 +52,39 @@ export default function Edit({ project }) {
           />
         </div>
 
-        <div className="mt-12 p-4 border border-red-600 bg-red-200 text-red-700 w-full">
-          <h3 className="text-2xl font-bold">Danger Zone!</h3>
-          <p className="text-md py-3 pb-12">
-            Delete your project by pressing the button below. To do so, press on
-            the button below and confirm that you want to delete the project.
-            This will remove both the data and the image.{" "}
-          </p>
-          <div className="mx-auto text-center">
+        <div className="mt-12 p-8 rounded-lg border border-red-300 bg-gradient-to-br from-red-50 to-red-100 text-red-900 w-full shadow-sm">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="flex-shrink-0 mt-1">
+              <svg
+                className="w-6 h-6 text-red-600"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-red-900 mb-2">
+                Danger Zone
+              </h3>
+              <p className="text-md text-red-800 leading-relaxed">
+                This action cannot be undone. This will permanently delete your
+                project, remove all associated data, and delete any uploaded
+                images.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-8 pt-6 border-t border-red-200">
             <button
-              className="text-xl text-white bg-red-700 border border-red-800 p-2"
+              className="w-full bg-red-600 hover:bg-red-700 active:bg-red-800 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 shadow-sm"
               onClick={() => handleDeleteProject()}
             >
-              DANGER: Press to Delete Project!
+              Delete Project
             </button>
           </div>
         </div>

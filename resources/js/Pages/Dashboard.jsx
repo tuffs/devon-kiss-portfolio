@@ -1,5 +1,6 @@
 import LinkedButton from "@/Components/LinkedButton";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { FiExternalLink, FiEdit2 } from "react-icons/fi";
 import { Head, router, usePage, Link } from "@inertiajs/react";
 
 export default function Dashboard({ projects }) {
@@ -31,11 +32,22 @@ export default function Dashboard({ projects }) {
             )}
           </div>
           <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="flex flex-rows">
+              <div className="w-full my-4 shadow rounded-md bg-inherit">
+                <div>
+                  <h3 className="text-2xl font-bold text-indigo-800">
+                    Project Title
+                  </h3>
+                </div>
+                <div>Description</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4">
               {projects.map((project) => (
                 <div
                   key={project.id}
-                  className="border rounded-lg p-4 bg-gray-50 shadow-sm"
+                  className="w-full border rounded-lg p-4 bg-gray-50 hover:shadow-xl"
                 >
                   <a
                     href={`/projects/${project.slug}`}
@@ -44,30 +56,28 @@ export default function Dashboard({ projects }) {
                     {project.title}
                   </a>
                   <p className="text-gray-600 text-sm mt-2 line-clamp-3">
-                    {project.description}
+                    {project.short_description}
                   </p>
                   <div className="mt-4 flex justify-between items-center">
                     <a
                       href={project.url}
                       target="_blank"
-                      className="text-sm text-blue-500 hover:underline"
+                      rel="noopener noreferrer"
+                      className="text-sm text-blue-500 hover:underline flex items-center gap-2"
                     >
+                      <FiExternalLink size={16} />
                       Visit Link
                     </a>
-                    <span className="text-xs text-gray-400">
-                      ID: {project.id}
-                    </span>
                   </div>
                   <div className="flex flex-wrap gap-4 mt-4 border-t pt-4">
                     {auth.user?.is_admin && (
-                      <>
-                        <Link
-                          href={route("projects.edit", project.id)}
-                          className="text-indigo-600 hover:text-indigo-800 font-bold"
-                        >
-                          Edit Project
-                        </Link>
-                      </>
+                      <Link
+                        href={route("projects.edit", project.id)}
+                        className="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-2"
+                      >
+                        <FiEdit2 size={16} />
+                        Edit Project
+                      </Link>
                     )}
                   </div>
                 </div>
